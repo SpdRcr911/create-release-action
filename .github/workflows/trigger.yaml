@@ -5,4 +5,4 @@ jobs:
   do:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'push'
+      - run: echo ${{EVENT_PATH}}
