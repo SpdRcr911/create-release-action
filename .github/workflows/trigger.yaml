@@ -3,5 +3,6 @@ on:
   
 jobs:
   do:
+    runs-on: ubuntu-latest
     steps:
-      - run echo 'push'
+      - run: echo 'push'
