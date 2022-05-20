@@ -1,0 +1,7 @@
+on:
+  push:
+  
+jobs:
+  do:
+    steps:
+      - run echo 'push'
