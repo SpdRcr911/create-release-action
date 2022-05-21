@@ -8,20 +8,6 @@ jobs:
     name: Create Release from Tag
     runs-on: ubuntu-latest
     steps:
-    - 
-      name: Checkout Code
-      uses: actions/checkout@v3
-    -
-      name: Contexts
-      run: |
-        echo '${{ github.event_name }}'
-        echo '${{ toJSON(github.event) }}'
-        echo '${{ github.job }}'
-        echo '${{ github.sha }}'
-        echo '${{ github.ref }}'
-        echo '${{ github.ref_name }}'
-        echo '${{ github.ref_protected }}'
-        echo '${{ github.ref_type }}'
     - name: Get event_path info
       id: get_tag_path
       run: |
@@ -38,17 +24,3 @@ jobs:
         gh release create ${{ github.ref_name }} --draft --title "Release ${{ github.ref_name }}" --generate-notes --notes "## $(date +%m/%d/%Y)$(echo -e "\n$message")"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    # - 
-    #   name: Setup .NET Core SDK
-    #   uses: actions/setup-dotnet@v2.1.0
-    # - 
-    #   name: Build App
-    #   run: |
-    #     dotnet clean --nologo -v m
-    #     dotnet restore --nologo -v m
-    #     dotnet build --nologo -v m --no-restore
-    #     dotnet test --no-build --no-restore
-    # - 
-    #   name: Run App
-    #   run: |
-    #     dotnet run --no-build --no-restore -- ${{ github.event_path }}
