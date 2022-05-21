@@ -28,7 +28,7 @@ jobs:
         content=`cat ${{ github.event_path }}`
         echo "::set-output name=json_data::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
     - name: Display event_path info
-      run: echo '${{ fromJson(steps.get_event_path.json_data) }}'
+      run: echo '${{ steps.get_event_path.json_data }}'
     # - name: Get tag info
     #   id: get_tag_info
     #   run: |
