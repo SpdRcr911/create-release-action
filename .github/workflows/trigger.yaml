@@ -26,7 +26,7 @@ jobs:
       id: get_event_path
       run: |
         content=$(<${{ github.event_path }})
-        echo "::set-output name=json_data::$content"
+        echo "::set-output name=json_data::${content//'%'/'%25'}"
     - name: Display event_path info
       run: echo '${{ steps.get_event_path.outputs.json_data }}'
     # - name: Get tag info
