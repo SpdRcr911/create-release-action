@@ -33,11 +33,11 @@ jobs:
         echo "::set-output name=git_tag_path::$git_tag_path"
     - name: Display event_path info
       run: |
-        echo '${{ steps.get_event_path.outputs.git_tag_path }}'
+        echo '${{ steps.get_tag_path.outputs.git_tag_path }}'
     - name: Get tag message
       id: get_tag_message
       run: |
-        message=`gh api ${{ steps.get_event_path.outputs.git_tag_path }} | jq --raw-output .message`
+        message=`gh api ${{ steps.get_tag_path.outputs.git_tag_path }} | jq --raw-output .message`
         echo "::set-output name=tag_message::$message"
     - name: Create release
       run: |
