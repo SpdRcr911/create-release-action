@@ -16,6 +16,10 @@ jobs:
         echo ${{ github.event }}
         echo ${{ github.job }}
         echo ${{ github.sha }}
+        echo ${{ github.ref }}
+        echo ${{ github.ref_name }}
+        echo ${{ github.ref_protected }}
+        echo ${{ github.ref_type }}
 
     - 
       name: Setup .NET Core SDK
