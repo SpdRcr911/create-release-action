@@ -25,11 +25,14 @@ jobs:
     - name: Get event_path info
       id: get_event_path
       run: |
-        content=`tr -d '\r\n|\n\r|\n|\r' < ${{ github.event_path }}`
-        echo "::set-output name=json_data::$fromJSON($content)"
+        git_tags_url=`jq .repository.git_tags_url ${{ github.event_path }}`
+        sha=`jq .after ${{ github.event_path }}`
+        echo "::set-output name=git_tags_url::$git_tags_url"
+        echo "::set-output name=sha::$sha"
     - name: Display event_path info
       run: |
-        echo '${{ steps.get_event_path.outputs.json_data.after }}'
+        echo '${{ steps.get_event_path.outputs.after }}'
+        echo '${{ steps.get_event_path.outputs.sha }}'
     # echo '${{ steps.get_event_path.outputs.json_data.reposity }}'
     # echo '${{ steps.get_event_path.outputs.json_data.reposity.git_tags_url }}'
     # - name: Get tag info
