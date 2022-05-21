@@ -44,9 +44,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
     - name: Create release
       run: |
-        message='${{ steps.get_tag_message.outputs.tag_message }}' 
-        echo $message
-        gh release create ${{ github.ref_name }} --draft --title "Release ${{ github.ref_name }}" --generate-notes --notes $message
+        message="'${{ steps.get_tag_message.outputs.tag_message }}'"
+        echo "$message"
+        gh release create ${{ github.ref_name }} --draft --title "Release ${{ github.ref_name }}" --generate-notes --notes "## $(date +%m/%d/%Y)$(echo -e "\n$message")"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # - 
