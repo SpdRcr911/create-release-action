@@ -5,4 +5,7 @@ jobs:
   do:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event_path }}
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v2.1.0
+    -
+      run: dotnet --version
