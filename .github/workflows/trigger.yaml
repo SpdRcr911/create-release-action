@@ -37,7 +37,7 @@ jobs:
     - name: Get tag message
       id: get_tag_message
       run: |
-        message=`gh api ${{ steps.get_tag_path.outputs.git_tag_path }} | jq --raw-output .message`
+        message=`gh api ${{ steps.get_tag_path.outputs.git_tag_path }} | jq .message`
         echo "::set-output name=tag_message::$message"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
