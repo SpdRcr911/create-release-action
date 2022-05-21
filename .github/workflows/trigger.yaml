@@ -29,7 +29,7 @@ jobs:
         git_tag_sha=`jq --raw-output .after                   ${{ github.event_path }}`
 
         git_tag_path=${git_tag_url/\{\/sha\}/\/$git_tag_sha}
-        echo $git_tag_url_with_sha        
+        echo $git_tag_path        
         echo "::set-output name=git_tag_path::$git_tag_path"
     - name: Display event_path info
       run: |
