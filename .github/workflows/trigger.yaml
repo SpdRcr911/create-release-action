@@ -25,14 +25,14 @@ jobs:
     - name: Get event_path info
       id: get_event_path
       run: |
-        content = `cat ${{ github.event_path }}`
+        content=$(<${{ github.event_path }})
         echo "::set-output name=json_data::$content"
     - name: Display event_path info
       run: echo '${{ fromJson(steps.get_event_path.json_data) }}'
     - name: Get tag info
       id: get_tag_info
       run: |
-        contnet = `gh api repos/${{ github.repository }}/git/tags/${{ github.event.after }}`
+        contnet=`gh api repos/${{ github.repository }}/git/tags/${{ github.event.after }}`
         echo "::set-output name=json_data::$content"
 
     - name: Create release
