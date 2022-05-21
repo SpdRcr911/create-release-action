@@ -23,27 +23,25 @@ jobs:
         echo '${{ github.ref_protected }}'
         echo '${{ github.ref_type }}'
     - name: Get event_path info
-      id: get_event_path
+      id: get_tag_path
       run: |
         git_tag_url=`jq --raw-output .repository.git_tags_url ${{ github.event_path }}`
         git_tag_sha=`jq --raw-output .after                   ${{ github.event_path }}`
 
-        git_tag_url_with_sha=${git_tag_url/\{\/sha\}/\/$git_tag_sha}
+        git_tag_path=${git_tag_url/\{\/sha\}/\/$git_tag_sha}
         echo $git_tag_url_with_sha        
-        echo "::set-output name=url_with_sha::$git_tag_url_with_sha"
+        echo "::set-output name=git_tag_path::$git_tag_path"
     - name: Display event_path info
       run: |
-        echo '${{ steps.get_event_path.outputs.url_with_sha }}'
-    # echo '${{ steps.get_event_path.outputs.json_data.reposity }}'
-    # echo '${{ steps.get_event_path.outputs.json_data.reposity.git_tags_url }}'
-    # - name: Get tag info
-    #   id: get_tag_info
-    #   run: |
-    #     contnet=`gh api repos/${{ github.repository }}/git/tags/${{ github.event.after }}`
-    #     echo "::set-output name=json_data::$content"
-
-    # - name: Create release
-    #   run: |
+        echo '${{ steps.get_event_path.outputs.git_tag_path }}'
+    - name: Get tag message
+      id: get_tag_message
+      run: |
+        message=`gh api ${{ steps.get_event_path.outputs.git_tag_path }} | jq --raw-output .message`
+        echo "::set-output name=tag_message::$message"
+    - name: Create release
+      run: |
+        echo '${{ steps.get_tag_message.outputs.tag_message }}'
     #     gh release create ${{ github.ref_name }} --title "Release ${{ github.ref_name }}" --generate-notes
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
