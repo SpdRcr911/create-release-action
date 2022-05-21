@@ -21,18 +21,20 @@ jobs:
         echo ${{ github.ref_name }}
         echo ${{ github.ref_protected }}
         echo ${{ github.ref_type }}
+    - name: Create release
+      run: gh release create ${{ github.ref_name }} --title "Release ${{ github.ref_name }}" --generate-notes
 
-    - 
-      name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v2.1.0
-    - 
-      name: Build App
-      run: |
-        dotnet clean --nologo -v m
-        dotnet restore --nologo -v m
-        dotnet build --nologo -v m --no-restore
-        dotnet test --no-build --no-restore
-    - 
-      name: Run App
-      run: |
-        dotnet run --no-build --no-restore -- ${{ github.event_path }}
+    # - 
+    #   name: Setup .NET Core SDK
+    #   uses: actions/setup-dotnet@v2.1.0
+    # - 
+    #   name: Build App
+    #   run: |
+    #     dotnet clean --nologo -v m
+    #     dotnet restore --nologo -v m
+    #     dotnet build --nologo -v m --no-restore
+    #     dotnet test --no-build --no-restore
+    # - 
+    #   name: Run App
+    #   run: |
+    #     dotnet run --no-build --no-restore -- ${{ github.event_path }}
