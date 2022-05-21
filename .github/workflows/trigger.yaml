@@ -29,7 +29,7 @@ jobs:
         echo "::set-output name=json_data::$fromJSON($content)"
     - name: Display event_path info
       run: |
-        echo '${{ steps.get_event_path.outputs.json_data }}'
+        echo '${{ steps.get_event_path.outputs.json_data.after }}'
     # echo '${{ steps.get_event_path.outputs.json_data.reposity }}'
     # echo '${{ steps.get_event_path.outputs.json_data.reposity.git_tags_url }}'
     # - name: Get tag info
