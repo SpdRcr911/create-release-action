@@ -30,10 +30,10 @@ jobs:
 
         git_tag_url_with_sha=${git_tag_url/\{\/sha\}/\/$git_tag_sha}
         echo $git_tag_url_with_sha        
-    #echo "::set-output name=tag_url::$(url)"
+        echo "::set-output name=url_with_sha::$(git_tag_url_with_sha)"
     - name: Display event_path info
       run: |
-        echo '${{ steps.get_event_path.outputs.tag_url }}'
+        echo '${{ steps.get_event_path.outputs.url_with_sha }}'
     # echo '${{ steps.get_event_path.outputs.json_data.reposity }}'
     # echo '${{ steps.get_event_path.outputs.json_data.reposity.git_tags_url }}'
     # - name: Get tag info
