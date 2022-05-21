@@ -28,7 +28,7 @@ jobs:
         content=`tr -d '\r\n|\n\r|\n|\r' < ${{ github.event_path }}`
         echo "::set-output name=json_data::$content"
     - name: Display event_path info
-      run: echo '${{ toJSON(fromJSON(steps.get_event_path.outputs.json_data)) }}'
+      run: echo '${{ steps.get_event_path.outputs.json_data.reposity.git_tags_url }}'
     # - name: Get tag info
     #   id: get_tag_info
     #   run: |
