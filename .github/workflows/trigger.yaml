@@ -4,7 +4,8 @@ on:
     - v[0-9]+.[0-9]+.[0-9]+.[0-9]+
      
 jobs:
-  do:
+  create-release:
+    name: Create Release from Tag
     runs-on: ubuntu-latest
     steps:
     - 
@@ -21,11 +22,22 @@ jobs:
         echo '${{ github.ref_name }}'
         echo '${{ github.ref_protected }}'
         echo '${{ github.ref_type }}'
-        echo '${{ toJSON(github.event_path) }}'
+    - name: Get event_path info
+      id: get_event_path
+      run: |
+        content = $(cat github.event_path)
+        echo "::set-output name=json_data::$content"
+    - name: Display event_path info
+      run: echo '${{ fromJson(steps.get_event_path.json_data) }}'
+    - name: Get tag info
+      id: get_tag_info
+      run: |
+        contnet = $(gh api repos/${{ github.repository }}/git/tags/${{ github.event.after }})
+        echo "::set-output name=json_data::$content"
+
     - name: Create release
       run: |
         gh release create ${{ github.ref_name }} --title "Release ${{ github.ref_name }}" --generate-notes
-        gh api repos/${{ github.repository }}/git/tags/${{ github.event.after }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # - 
