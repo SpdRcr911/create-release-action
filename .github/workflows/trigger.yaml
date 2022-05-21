@@ -11,8 +11,8 @@ jobs:
       uses: actions/setup-dotnet@v2.1.0
     -
       run: |
-        dotnet clean
-        dotnet restore
-        dotnet build
-        dotnet test
-        dotnet run
+        dotnet clean --nologo -v m
+        dotnet restore --nologo -v m
+        dotnet build --nologo -v m --no-restore
+        dotnet test --no-build --no-restore
+        dotnet run --no-build --no-restore
