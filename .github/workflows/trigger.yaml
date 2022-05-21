@@ -8,7 +8,11 @@ jobs:
     name: Create Release from Tag
     runs-on: ubuntu-latest
     steps:
-    - name: Get event_path info
+    - 
+      name: Checkout Code
+      uses: actions/checkout@v3
+    - 
+      name: Get path tag
       id: get_tag_path
       run: |
         git_tag_url=`jq --raw-output .repository.git_tags_url ${{ github.event_path }}`
@@ -17,7 +21,8 @@ jobs:
         git_tag_path=${git_tag_url/\{\/sha\}/\/$git_tag_sha}
         echo $git_tag_path        
         echo "::set-output name=git_tag_path::$git_tag_path"
-    - name: Create Release
+    - 
+      name: Create Release
       run: |
         message="`gh api ${{ steps.get_tag_path.outputs.git_tag_path }} | jq --raw-output .message`"
         echo -e "$message"
