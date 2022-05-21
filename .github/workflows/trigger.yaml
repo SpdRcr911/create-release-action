@@ -38,14 +38,14 @@ jobs:
       id: get_tag_message
       run: |
         message="`gh api ${{ steps.get_tag_path.outputs.git_tag_path }} | jq --raw-output .message`"
-        echo "$message"
-        echo "::set-output name=tag_message::$message"
+        echo -e "$message"
+        echo -e "::set-output name=tag_message::$message"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
     - name: Create release
       run: |
         message="'${{ steps.get_tag_message.outputs.tag_message }}'"
-        echo "$message"
+        echo -e "$message"
         gh release create ${{ github.ref_name }} --draft --title "Release ${{ github.ref_name }}" --generate-notes --notes "## $(date +%m/%d/%Y)$(echo -e "\n$message")"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
